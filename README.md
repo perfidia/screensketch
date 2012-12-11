@@ -8,7 +8,7 @@ A simple tool to operate on sketches of GUI.
 
 Currently the following formats are supported:
 
-    * ScreenSpec
+* ScreenSpec
 
 License
 -------
