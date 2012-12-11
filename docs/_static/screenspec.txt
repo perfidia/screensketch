@@ -1,0 +1,49 @@
+ScreenSpec
+==========
+
+Origin
+------
+
+ScreenSpec was invented by Łukasz Olek, Jerzy Nawrocki, and Mirosław Ochodek,
+for further information see the following publication:
+
+    Łukasz Olek, Jerzy Nawrocki, and Mirosław Ochodek:
+    *Enhancing Use Cases with Screen Designs*
+    In: Software Engineering Techniques:
+    Third IFIP TC 2 Central and East European Conference,
+    CEE-SET 2008, Brno, Czech Republic, October 2008,
+    Revised Selected Papers,
+    ed. by Huzar Z., Koci R., Meyer B., Walter B., Zendulka J.,
+    vol. 4980, pp. 48-61, Springer Verlag.
+    Lecture Notest in Computer Science. 2011.
+
+Example
+-------
+
+::
+
+	SCREEN Login:
+		Username(EDIT_BOX)
+		Password(PASSWORD)
+		Sex(COMBO_BOX):
+			Female(STATIC_TEXT)
+			Male(STATIC_TEXT)
+		Log_in(BUTTON)
+
+Usage
+-----
+
+Below an example of how to read an existing file is presented:
+
+::
+
+	from screensketch.screenspec.reader import Reader
+	input_data = open("example.txt").read()
+	retval = Reader(input_data).execute()
+
+The ``retval`` contains an instance of ``ScreenSpec``. Inside this class
+there is a variable ``children``, inside this list all instances of
+screens are presented (each screen is represented by a ``Screen`` class.
+
+For further information about the data structure please check
+``screensketch.screenspec.model`` module.

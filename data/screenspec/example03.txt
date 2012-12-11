@@ -1,0 +1,4 @@
+SCREEN ThisIsAlsoCorrect:
+	button
+	static_text
+	radio_buttons

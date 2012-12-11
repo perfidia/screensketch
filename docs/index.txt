@@ -1,0 +1,10 @@
+Welcome to Screen Sketch's documentation!
+====================================================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+   _static/screenspec.txt
+   _static/todo.txt

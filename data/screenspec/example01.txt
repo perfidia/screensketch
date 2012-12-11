@@ -1,0 +1,65 @@
+SCREEN Login:
+	Username(EDIT_BOX)
+	Password(PASSWORD)
+	Sex(COMBO_BOX):
+		Female(STATIC_TEXT)
+		Male(STATIC_TEXT)
+	Log_in(BUTTON)
+	Forgot_your_password(LINK)
+
+SCREEN Create_account:
+	Username(EDIT_BOX)
+	Password(EDIT_BOX)
+	Email(EDIT_BOX)
+	Retype_password(EDIT_BOX)
+	Captcha(IMAGE)
+	Create(BUTTON)
+	Cancel(BUTTON)
+
+SCREEN Retrieve_password:
+	Warning(STATIC_TEXT)
+	Username(EDIT_BOX)
+	Captcha(IMAGE)
+	Retrieve(BUTTON)
+
+SCREEN Comment:
+	Username(DYNAMIC_TEXT)
+	Message(TEXT_AREA)
+
+SCREEN Personal_data:
+	User(SIMPLE):
+		Name(EDIT_BOX)
+		Surname(EDIT_BOX)
+	Account(SIMPLE):
+		Password(EDIT_BOX)
+		Email(EDIT_BOX)
+
+SCREEN Order:
+	Goods(TABLE):
+		Select(CHECK_BOX)
+		Name(DYNAMIC_TEXT)
+		Quantity(DYNAMIC_TEXT)
+		Price(DYNAMIC_TEXT)
+		Remove(BUTTON)
+	Remove_selected(BUTTON)
+	Order(BUTTON)
+
+SCREEN Newsletter:
+	Email(DYNAMIC_TEXT)
+	Categories(CHECK_BOXES):
+		Food(CHECK_BOX)
+		Movies(CHECK_BOX)
+	Format(RADIO_BUTTONS):
+		Text(RADIO_BUTTON)
+		HTML(RADIO_BUTTON)
+	Frequency(LIST):
+		DAILY(STATIC_TEXT)
+		WEEKLY(STATIC_TEXT)
+	Signup(BUTTON)
+
+SCREEN Offer:
+	Goods(LIST):
+		Name(DYNAMIC_TEXT)
+		Price(DYNAMIC_TEXT)
+		Quantity(DYNAMIC_TEXT)
+		Buy(BUTTON)

@@ -1,0 +1,16 @@
+SCREEN AnExampleOfStaticValues999:
+	button(BUTTON): caption
+	link(LINK): caption
+	static_text(STATIC_TEXT): text
+	radio_buttons(RADIO_BUTTONS): =Male|Female
+	check_boxes(CHECK_BOXES): A|=B
+	combo_box(COMBO_BOX): A|B|C
+	list_box(LIST_BOX): A|B|C
+	edit_box(EDIT_BOX): Put sth here
+	text_area(TEXT_AREA): Put sth here
+
+SCREEN AnExampleOfStaticValues_999:
+	Email(EDIT_BOX): Put sth here
+	Sex(RADIO_BUTTONS): Male|Female
+	Age(COMBO_BOX): < 10|11-30|> 30
+	Age(COMBO_BOX)

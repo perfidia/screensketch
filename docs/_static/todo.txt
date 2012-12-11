@@ -1,0 +1,9 @@
+TODO
+====
+
+* ScreenSpec
+    * describe grammar in a separated file
+    * create an example of an existing system using screenspec
+    * write a renderer to html and png 
+    * allow renderer (above) to generate screens with some data
+    * fix loggers
