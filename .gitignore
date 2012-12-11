@@ -35,3 +35,6 @@ nosetests.xml
 .pydevproject
 
 /docs/_build
+
+parsetab.py
+parselog.txt
