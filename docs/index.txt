@@ -6,5 +6,6 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   _static/installation.txt
    _static/screenspec.txt
    _static/todo.txt
