@@ -2,7 +2,7 @@
 
 import logging
 
-from screensketch.screenspec.reader import Reader
+from screensketch.screenspec.reader import TextReader
 
 FORMAT = '%(levelname)-7s %(message)s'
 
@@ -19,7 +19,7 @@ input_data = open("../data/screenspec/example01.txt").read()
 #input_data = open("../data/screenspec/example02.txt").read()
 #input_data = open("../data/screenspec/example03.txt").read()
 
-retval = Reader(input_data).execute()
+retval = TextReader(input_data).execute()
 
 print retval.to_text(),
 
