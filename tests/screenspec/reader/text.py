@@ -5,15 +5,21 @@ Created on Dec 9, 2012
 '''
 
 import unittest
-from screensketch.screenspec.reader import Reader
+import StringIO
+from screensketch.screenspec.reader import TextReader
+from screensketch.screenspec.writer import TextWriter
 
 class Test(unittest.TestCase):
 	def wrapper(self, filename):
+		tmp_fd = StringIO.StringIO()
+
 		input = open(filename).read()
-		output = Reader(input).execute()
+		output = TextReader(input).execute()
 
 		tmp0 = input.split('\n')
-		tmp1 = output.to_text().split('\n')
+
+		TextWriter(output).execute(tmp_fd)
+		tmp1 = tmp_fd.getvalue().split('\n')
 
 		self.assertEqual(len(tmp0), len(tmp1))
 

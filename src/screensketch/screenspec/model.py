@@ -19,9 +19,6 @@ class ScreenSpec(object):
 
 		return self
 
-	def to_text(self, indent = -1):
-		return "\n".join([c.to_text(indent + 1) for c in self.children])
-
 ############################
 #          Header          #
 ############################
@@ -40,14 +37,6 @@ class Screen(object):
 
 		return self
 
-	def to_text(self, indent = 0):
-		indention = "\t" * indent
-		retval = "%sSCREEN %s:\n" % (indention, self.name)
-
-		retval += "".join([c.to_text(indent + 1) for c in self.children])
-
-		return retval
-
 ############################
 #        Component         #
 ############################
@@ -58,14 +47,6 @@ class Component(object):
 
 		self.identifier = identifier
 		self.name = name
-
-	def to_text(self, indent):
-		indention = "\t" * indent
-
-		if self.name is not None:
-			return "%s%s(%s)\n" % (indention, self.identifier, self.name)
-
-		return "%s%s\n" % (indention, self.identifier)
 
 class ComoundComponent(Component):
 	def __init__(self, identifier, name):
@@ -79,14 +60,6 @@ class ComoundComponent(Component):
 
 		return self
 
-	def to_text(self, indent):
-		indention = "\t" * indent
-
-		retval = "%s%s(%s):\n" % (indention, self.identifier, self.name)
-		retval += "".join([c.to_text(indent + 1) for c in self.children])
-
-		return retval
-
 class StaticValue(object):
 	def __init__(self):
 		self._static_values = None
@@ -96,20 +69,6 @@ class StaticValue(object):
 
 	def _get_static_values(self):
 		return "|".join(self._static_values)
-
-	def to_text(self, indent):
-		indention = "\t" * indent
-
-		retval = "%s%s(%s)" % (indention, self.identifier, self.name)
-
-		if self._static_values is not None:
-			retval += ": " + self._get_static_values() + "\n"
-		elif isinstance(self, ComoundComponent) and len(self.children) > 0:
-			retval += ":\n" + "".join([c.to_text(indent + 1) for c in self.children])
-		else:
-			retval += "\n"
-
-		return retval
 
 ############################
 #     Basic Components     #
@@ -132,9 +91,6 @@ class Button(Component, StaticValue):
 
 	static_values = property(StaticValue._get_static_values, _set_static_values)
 
-	def to_text(self, indent):
-		return StaticValue.to_text(self, indent)
-
 class Link(Component, StaticValue):
 	def __init__(self, identifier):
 		Component.__init__(self, identifier, "LINK")
@@ -147,9 +103,6 @@ class Link(Component, StaticValue):
 		self._static_values = values
 
 	static_values = property(StaticValue._get_static_values, _set_static_values)
-
-	def to_text(self, indent):
-		return StaticValue.to_text(self, indent)
 
 class Image(Component):
 	def __init__(self, identifier):
@@ -168,9 +121,6 @@ class StaticText(Component, StaticValue):
 
 	static_values = property(StaticValue._get_static_values, _set_static_values)
 
-	def to_text(self, indent):
-		return StaticValue.to_text(self, indent)
-
 class DynamicText(Component):
 	def __init__(self, identifier):
 		Component.__init__(self, identifier, "DYNAMIC_TEXT")
@@ -187,9 +137,6 @@ class EditBox(Component, StaticValue):
 		self._static_values = values
 
 	static_values = property(StaticValue._get_static_values, _set_static_values)
-
-	def to_text(self, indent):
-		return StaticValue.to_text(self, indent)
 
 class CheckBox(Component):
 	def __init__(self, identifier):
@@ -211,9 +158,6 @@ class TextArea(Component, StaticValue):
 		self._static_values = values
 
 	static_values = property(StaticValue._get_static_values, _set_static_values)
-
-	def to_text(self, indent):
-		return StaticValue.to_text(self, indent)
 
 class Password(Component):
 	def __init__(self, identifier):
@@ -240,9 +184,6 @@ class ComboBox(ComoundComponent, StaticValue):
 
 	static_values = property(StaticValue._get_static_values, _set_static_values)
 
-	def to_text(self, indent):
-		return StaticValue.to_text(self, indent)
-
 class ListBox(ComoundComponent, StaticValue):
 	def __init__(self, identifier):
 		ComoundComponent.__init__(self, identifier, "LIST_BOX")
@@ -255,9 +196,6 @@ class ListBox(ComoundComponent, StaticValue):
 		self._static_values = values
 
 	static_values = property(StaticValue._get_static_values, _set_static_values)
-
-	def to_text(self, indent):
-		return StaticValue.to_text(self, indent)
 
 class RadioButtons(ComoundComponent, StaticValue):
 	def __init__(self, identifier):
@@ -272,9 +210,6 @@ class RadioButtons(ComoundComponent, StaticValue):
 
 	static_values = property(StaticValue._get_static_values, _set_static_values)
 
-	def to_text(self, indent):
-		return StaticValue.to_text(self, indent)
-
 class CheckBoxes(ComoundComponent, StaticValue):
 	def __init__(self, identifier):
 		ComoundComponent.__init__(self, identifier, "CHECK_BOXES")
@@ -287,9 +222,6 @@ class CheckBoxes(ComoundComponent, StaticValue):
 		self._static_values = values
 
 	static_values = property(StaticValue._get_static_values, _set_static_values)
-
-	def to_text(self, indent):
-		return StaticValue.to_text(self, indent)
 
 ############################
 #    Compound Components   #

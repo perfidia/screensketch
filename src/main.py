@@ -1,8 +1,11 @@
 #!/usr/bin.env python
 
+import sys
 import logging
 
 from screensketch.screenspec.reader import TextReader
+from screensketch.screenspec.writer import TextWriter
+
 
 FORMAT = '%(levelname)-7s %(message)s'
 
@@ -20,7 +23,6 @@ input_data = open("../data/screenspec/example01.txt").read()
 #input_data = open("../data/screenspec/example03.txt").read()
 
 retval = TextReader(input_data).execute()
-
-print retval.to_text(),
+TextWriter(retval).execute(sys.stdout)
 
 logger.info("END")
