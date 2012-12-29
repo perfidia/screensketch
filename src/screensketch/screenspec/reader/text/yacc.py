@@ -163,10 +163,24 @@ def p_static_values(p):
 	                 | static_values PIPE static_value
 	'''
 
+	selected = False
+
 	if len(p) == 2:
-		p[0] = [p[1]]
+		if p[1][0] == '=':
+			value = p[1][1:]
+			selected = True
+		else:
+			value = p[1]
+
+		p[0] = [StaticValue(value, selected)]
 	else:
-		p[1].append(p[3])
+		if p[3][0] == '=':
+			value = p[3][1:]
+			selected = True
+		else:
+			value = p[3]
+
+		p[1].append(StaticValue(value, selected))
 		p[0] = p[1]
 
 	assert p[0] != None

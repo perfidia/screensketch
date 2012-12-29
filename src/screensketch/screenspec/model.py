@@ -60,7 +60,7 @@ class ComoundComponent(Component):
 
 		return self
 
-class StaticValue(object):
+class StaticValueContainer(object):
 	def __init__(self):
 		self._static_values = None
 
@@ -68,7 +68,7 @@ class StaticValue(object):
 		raise Exception("Please overwrite")
 
 	def _get_static_values(self):
-		return "|".join(self._static_values)
+		return self._static_values
 
 ############################
 #     Basic Components     #
@@ -78,10 +78,10 @@ class Entity(Component):
 	def __init__(self, identifier):
 		Component.__init__(self, identifier, None)
 
-class Button(Component, StaticValue):
+class Button(Component, StaticValueContainer):
 	def __init__(self, identifier):
 		Component.__init__(self, identifier, "BUTTON")
-		StaticValue.__init__(self)
+		StaticValueContainer.__init__(self)
 
 	def _set_static_values(self, values):
 		if len(values) != 1:
@@ -89,12 +89,12 @@ class Button(Component, StaticValue):
 
 		self._static_values = values
 
-	static_values = property(StaticValue._get_static_values, _set_static_values)
+	static_values = property(StaticValueContainer._get_static_values, _set_static_values)
 
-class Link(Component, StaticValue):
+class Link(Component, StaticValueContainer):
 	def __init__(self, identifier):
 		Component.__init__(self, identifier, "LINK")
-		StaticValue.__init__(self)
+		StaticValueContainer.__init__(self)
 
 	def _set_static_values(self, values):
 		if len(values) != 1:
@@ -102,16 +102,16 @@ class Link(Component, StaticValue):
 
 		self._static_values = values
 
-	static_values = property(StaticValue._get_static_values, _set_static_values)
+	static_values = property(StaticValueContainer._get_static_values, _set_static_values)
 
 class Image(Component):
 	def __init__(self, identifier):
 		Component.__init__(self, identifier, "IMAGE")
 
-class StaticText(Component, StaticValue):
+class StaticText(Component, StaticValueContainer):
 	def __init__(self, identifier):
 		Component.__init__(self, identifier, "STATIC_TEXT")
-		StaticValue.__init__(self)
+		StaticValueContainer.__init__(self)
 
 	def _set_static_values(self, values):
 		if len(values) != 1:
@@ -119,16 +119,16 @@ class StaticText(Component, StaticValue):
 
 		self._static_values = values
 
-	static_values = property(StaticValue._get_static_values, _set_static_values)
+	static_values = property(StaticValueContainer._get_static_values, _set_static_values)
 
 class DynamicText(Component):
 	def __init__(self, identifier):
 		Component.__init__(self, identifier, "DYNAMIC_TEXT")
 
-class EditBox(Component, StaticValue):
+class EditBox(Component, StaticValueContainer):
 	def __init__(self, identifier):
 		Component.__init__(self, identifier, "EDIT_BOX")
-		StaticValue.__init__(self)
+		StaticValueContainer.__init__(self)
 
 	def _set_static_values(self, values):
 		if len(values) != 1:
@@ -136,7 +136,7 @@ class EditBox(Component, StaticValue):
 
 		self._static_values = values
 
-	static_values = property(StaticValue._get_static_values, _set_static_values)
+	static_values = property(StaticValueContainer._get_static_values, _set_static_values)
 
 class CheckBox(Component):
 	def __init__(self, identifier):
@@ -146,10 +146,10 @@ class RadioButton(Component):
 	def __init__(self, identifier):
 		Component.__init__(self, identifier, "RADIO_BUTTON")
 
-class TextArea(Component, StaticValue):
+class TextArea(Component, StaticValueContainer):
 	def __init__(self, identifier):
 		Component.__init__(self, identifier, "TEXT_AREA")
-		StaticValue.__init__(self)
+		StaticValueContainer.__init__(self)
 
 	def _set_static_values(self, values):
 		if len(values) == 0:
@@ -157,7 +157,7 @@ class TextArea(Component, StaticValue):
 
 		self._static_values = values
 
-	static_values = property(StaticValue._get_static_values, _set_static_values)
+	static_values = property(StaticValueContainer._get_static_values, _set_static_values)
 
 class Password(Component):
 	def __init__(self, identifier):
@@ -171,10 +171,10 @@ class Custom(Component):
 # Semi-Compound Components #
 ############################
 
-class ComboBox(ComoundComponent, StaticValue):
+class ComboBox(ComoundComponent, StaticValueContainer):
 	def __init__(self, identifier):
 		ComoundComponent.__init__(self, identifier, "COMBO_BOX")
-		StaticValue.__init__(self)
+		StaticValueContainer.__init__(self)
 
 	def _set_static_values(self, values):
 		if len(values) == 0:
@@ -182,12 +182,12 @@ class ComboBox(ComoundComponent, StaticValue):
 
 		self._static_values = values
 
-	static_values = property(StaticValue._get_static_values, _set_static_values)
+	static_values = property(StaticValueContainer._get_static_values, _set_static_values)
 
-class ListBox(ComoundComponent, StaticValue):
+class ListBox(ComoundComponent, StaticValueContainer):
 	def __init__(self, identifier):
 		ComoundComponent.__init__(self, identifier, "LIST_BOX")
-		StaticValue.__init__(self)
+		StaticValueContainer.__init__(self)
 
 	def _set_static_values(self, values):
 		if len(values) == 0:
@@ -195,12 +195,12 @@ class ListBox(ComoundComponent, StaticValue):
 
 		self._static_values = values
 
-	static_values = property(StaticValue._get_static_values, _set_static_values)
+	static_values = property(StaticValueContainer._get_static_values, _set_static_values)
 
-class RadioButtons(ComoundComponent, StaticValue):
+class RadioButtons(ComoundComponent, StaticValueContainer):
 	def __init__(self, identifier):
 		ComoundComponent.__init__(self, identifier, "RADIO_BUTTONS")
-		StaticValue.__init__(self)
+		StaticValueContainer.__init__(self)
 
 	def _set_static_values(self, values):
 		if len(values) == 0:
@@ -208,12 +208,12 @@ class RadioButtons(ComoundComponent, StaticValue):
 
 		self._static_values = values
 
-	static_values = property(StaticValue._get_static_values, _set_static_values)
+	static_values = property(StaticValueContainer._get_static_values, _set_static_values)
 
-class CheckBoxes(ComoundComponent, StaticValue):
+class CheckBoxes(ComoundComponent, StaticValueContainer):
 	def __init__(self, identifier):
 		ComoundComponent.__init__(self, identifier, "CHECK_BOXES")
-		StaticValue.__init__(self)
+		StaticValueContainer.__init__(self)
 
 	def _set_static_values(self, values):
 		if len(values) == 0:
@@ -221,7 +221,7 @@ class CheckBoxes(ComoundComponent, StaticValue):
 
 		self._static_values = values
 
-	static_values = property(StaticValue._get_static_values, _set_static_values)
+	static_values = property(StaticValueContainer._get_static_values, _set_static_values)
 
 ############################
 #    Compound Components   #
@@ -238,3 +238,14 @@ class List(ComoundComponent):
 class Table(ComoundComponent):
 	def __init__(self, identifier):
 		ComoundComponent.__init__(self, identifier, "TABLE")
+
+############################
+#       Static Value       #
+############################
+
+class StaticValue(object):
+	def __init__(self, value, selected = False):
+		assert value != None
+
+		self.value = value
+		self.selected = selected
