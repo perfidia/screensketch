@@ -40,7 +40,7 @@ def StaticValue_att_to_text(self, indent):
 		retval = "%s%s(%s)" % (indention, self.identifier, self.name)
 
 		if self._static_values is not None:
-			retval += ": " + self._get_static_values() + "\n"
+			retval += ": " + "|".join([i.value if i.selected == False else "=%s" % i.value for i in self._get_static_values()]) + "\n"
 		elif isinstance(self, orginal.ComoundComponent) and len(self.children) > 0:
 			retval += ":\n" + "".join([c.to_text(indent + 1) for c in self.children])
 		else:
