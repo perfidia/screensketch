@@ -17,6 +17,43 @@ for further information see the following publication:
     vol. 4980, pp. 48-61, Springer Verlag.
     Lecture Notest in Computer Science. 2011.
 
+Grammar
+-------
+
+To simplify the grammar white spaces and indentations were omitted.
+For further details please refer to ``screensketch.screenspec.reader.text.lex`` and ``screensketch.screenspec.reader.text.yacc``.
+
+::
+
+	identifier : [A-Za-z][A-Za-z0-9_]*
+	static_value : (identifier|[-?><= ():0-9])+
+
+	screenspec : screen+
+
+	screen : header component_list
+
+	header : SCREEN identifier":"
+
+	component_list : component_item+
+
+	component_item : identifier
+	               | identifier "(" component_type ")"
+	               | identifier "(" component_type "):"
+	               | identifier "(" component_type "):" static_values
+
+	static_values : static_value ("|" static_value)*
+
+	component_type : basic_type
+	               | semi_compound_type
+	               | compound_type
+
+	basic_type : "BUTTON" | "LINK" | "IMAGE" | "STATIC_TEXT" | "DYNAMIC_TEXT" | "EDIT_BOX"
+	           | "CHECK_BOX" | "RADIO_BUTTON" | "TEXT_AREA" | "PASSWORD" | "CUSTOM"
+
+	semi_compound_type : "COMBO_BOX" | "LIST_BOX" | "RADIO_BUTTONS" | "CHECK_BOXES"
+
+	compound_type : "SIMPLE" | "LIST" | "TABLE"
+
 Example
 -------
 
@@ -30,6 +67,9 @@ Example
 			Male(STATIC_TEXT)
 		Log_in(BUTTON)
 
+The example above presents a screen composed of 4 elements: edit box, password
+(also an edit box), combo box constructed from 2 elements and a button.
+
 Usage
 -----
 
@@ -37,9 +77,9 @@ Below an example of how to read an existing file is presented:
 
 ::
 
-	from screensketch.screenspec.reader import Reader
+	from screensketch.screenspec.reader import TextReader
 	input_data = open("example.txt").read()
-	retval = Reader(input_data).execute()
+	retval = TextReader(input_data).execute()
 
 The ``retval`` contains an instance of ``ScreenSpec``. Inside this class
 there is a variable ``children``, inside this list all instances of
