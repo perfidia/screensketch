@@ -5,7 +5,7 @@ import logging
 
 from screensketch.screenspec.reader import TextReader
 from screensketch.screenspec.writer import TextWriter
-
+from screensketch.screenspec.writer import XMLWriter
 
 FORMAT = '%(levelname)-7s %(message)s'
 
@@ -18,11 +18,12 @@ logger = logging.getLogger("root")
 
 logger.info("START")
 
-input_data = open("../data/screenspec/example01.txt").read()
-#input_data = open("../data/screenspec/example02.txt").read()
+#input_data = open("../data/screenspec/example01.txt").read()
+input_data = open("../data/screenspec/example02.txt").read()
 #input_data = open("../data/screenspec/example03.txt").read()
 
 retval = TextReader(input_data).execute()
-TextWriter(retval).execute(sys.stdout)
+#TextWriter(retval).execute(sys.stdout)
+XMLWriter(retval).execute(sys.stdout)
 
 logger.info("END")
