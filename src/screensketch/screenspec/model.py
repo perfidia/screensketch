@@ -70,6 +70,10 @@ class StaticValueContainer(object):
 	def _get_static_values(self):
 		return self._static_values
 
+class ComoundValuesContainer(object):
+	def __init__(self):
+		self._grid = None # 2d lisl
+
 ############################
 #     Basic Components     #
 ############################
@@ -227,20 +231,23 @@ class CheckBoxes(ComoundComponent, StaticValueContainer):
 #    Compound Components   #
 ############################
 
-class Simple(ComoundComponent):
+class Simple(ComoundComponent, ComoundValuesContainer):
 	def __init__(self, identifier):
 		ComoundComponent.__init__(self, identifier, "SIMPLE")
+		ComoundValuesContainer.__init__(self)
 
-class List(ComoundComponent):
+class List(ComoundComponent, ComoundValuesContainer):
 	def __init__(self, identifier):
 		ComoundComponent.__init__(self, identifier, "LIST")
+		ComoundValuesContainer.__init__(self)
 
-class Table(ComoundComponent):
+class Table(ComoundComponent, ComoundValuesContainer):
 	def __init__(self, identifier):
 		ComoundComponent.__init__(self, identifier, "TABLE")
+		ComoundValuesContainer.__init__(self)
 
 ############################
-#       Static Value       #
+#       StaticValues       #
 ############################
 
 class StaticValue(object):

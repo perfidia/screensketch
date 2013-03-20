@@ -8,45 +8,45 @@ from types import MethodType
 import screensketch.screenspec.model as orginal
 
 def ScreenSpec_att_to_text(self, indent = -1):
-		return "\n".join([c.to_text(indent + 1) for c in self.children])
+	return "\n".join([c.to_text(indent + 1) for c in self.children])
 
 def Screen_att_to_text(self, indent = 0):
-		indention = "\t" * indent
-		retval = "%sSCREEN %s:\n" % (indention, self.name)
+	indention = "\t" * indent
+	retval = "%sSCREEN %s:\n" % (indention, self.name)
 
-		retval += "".join([c.to_text(indent + 1) for c in self.children])
+	retval += "".join([c.to_text(indent + 1) for c in self.children])
 
-		return retval
+	return retval
 
 def Component_att_to_text(self, indent):
-		indention = "\t" * indent
+	indention = "\t" * indent
 
-		if self.name is not None:
-			return "%s%s(%s)\n" % (indention, self.identifier, self.name)
+	if self.name is not None:
+		return "%s%s(%s)\n" % (indention, self.identifier, self.name)
 
-		return "%s%s\n" % (indention, self.identifier)
+	return "%s%s\n" % (indention, self.identifier)
 
 def ComoundComponent_att_to_text(self, indent):
-		indention = "\t" * indent
+	indention = "\t" * indent
 
-		retval = "%s%s(%s):\n" % (indention, self.identifier, self.name)
-		retval += "".join([c.to_text(indent + 1) for c in self.children])
+	retval = "%s%s(%s):\n" % (indention, self.identifier, self.name)
+	retval += "".join([c.to_text(indent + 1) for c in self.children])
 
-		return retval
+	return retval
 
 def StaticValue_att_to_text(self, indent):
-		indention = "\t" * indent
+	indention = "\t" * indent
 
-		retval = "%s%s(%s)" % (indention, self.identifier, self.name)
+	retval = "%s%s(%s)" % (indention, self.identifier, self.name)
 
-		if self._static_values is not None:
-			retval += ": " + "|".join([i.value if i.selected == False else "=%s" % i.value for i in self._get_static_values()]) + "\n"
-		elif isinstance(self, orginal.ComoundComponent) and len(self.children) > 0:
-			retval += ":\n" + "".join([c.to_text(indent + 1) for c in self.children])
-		else:
-			retval += "\n"
+	if self._static_values is not None:
+		retval += ": " + "|".join([i.value if i.selected == False else "=%s" % i.value for i in self._get_static_values()]) + "\n"
+	elif isinstance(self, orginal.ComoundComponent) and len(self.children) > 0:
+		retval += ":\n" + "".join([c.to_text(indent + 1) for c in self.children])
+	else:
+		retval += "\n"
 
-		return retval
+	return retval
 
 #def Button_att_to_text(self, indent):
 #		return orginal.StaticValue.to_text(self, indent)

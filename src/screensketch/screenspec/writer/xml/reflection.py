@@ -38,7 +38,9 @@ def Screen_att_to_xml(self, parent):
 
 def Component_att_to_xml(self, parent):
 	node = ET.SubElement(parent, "component")
-	node.set("type", self.name)
+
+	if self.name:
+		node.set("type", self.name)
 
 	identifier = ET.SubElement(node, "identifier")
 	identifier.text = self.identifier
@@ -57,14 +59,21 @@ def ComoundComponent_att_to_xml(self, parent):
 	for c in self.children:
 		c.to_xml(children)
 
+	if isinstance(self, orginal.ComoundValuesContainer): #  and len(self._grid) > 0
+		grid = ET.SubElement(node, "values")
+
+		for row in self._grid:
+			tr = ET.SubElement(grid, "tr")
+
+			for col in row:
+				td = ET.SubElement(tr, "td")
+				td.text = col
+
 	return node
 
 def StaticValue_att_to_xml(self, parent):
-	node = ET.SubElement(parent, "component")
-	node.set("type", "STATIC_TEXT")
-
-	identifier = ET.SubElement(node, "identifier")
-	identifier.text = self.value
+	node = ET.SubElement(parent, "value")
+	node.text = self.value
 
 	if self.selected == True:
 		node.set("selected", "True")
@@ -79,7 +88,7 @@ def StaticValueContainer_att_to_xml(self, parent):
 	identifier.text = self.identifier
 
 	if self._static_values is not None:
-		static_values = ET.SubElement(node, "children")
+		static_values = ET.SubElement(node, "values")
 
 		svs = self._get_static_values()
 
@@ -95,49 +104,22 @@ def StaticValueContainer_att_to_xml(self, parent):
 
 	return node
 
-#def Button_att_to_xml(self, indent):
-#		return orginal.StaticValue.to_text(self, indent)
-#
-#def Link_att_to_xml(self, indent):
-#		return orginal.StaticValue.to_text(self, indent)
-#
-#def StaticText_att_to_xml(self, indent):
-#		return orginal.StaticValue.to_text(self, indent)
-#
-#def EditBox_att_to_xml(self, indent):
-#		return orginal.StaticValue.to_text(self, indent)
-#
-#def TextArea_att_to_xml(self, indent):
-#		return orginal.StaticValue.to_text(self, indent)
-#
-#def ComboBox_att_to_xml(self, indent):
-#		return orginal.StaticValue.to_text(self, indent)
-#
-#def ListBox_att_to_xml(self, indent):
-#		return orginal.StaticValue.to_text(self, indent)
-#
-#def RadioButtons_att_to_xml(self, indent):
-#		return orginal.StaticValue.to_text(self, indent)
-#
-#def CheckBoxes_att_to_xml(self, indent):
-#		return orginal.StaticValue.to_text(self, indent)
-
 attachments = {
-	orginal.ScreenSpec:       ScreenSpec_att_to_xml,
-	orginal.Screen:           Screen_att_to_xml,
-	orginal.Component:        Component_att_to_xml,
-	orginal.ComoundComponent: ComoundComponent_att_to_xml,
+	orginal.ScreenSpec:           ScreenSpec_att_to_xml,
+	orginal.Screen:               Screen_att_to_xml,
+	orginal.Component:            Component_att_to_xml,
+	orginal.ComoundComponent:     ComoundComponent_att_to_xml,
 	orginal.StaticValue:          StaticValue_att_to_xml,
-	orginal.StaticValueContainer: StaticValueContainer_att_to_xml,
-	orginal.Button:           StaticValueContainer_att_to_xml,
-	orginal.Link:             StaticValueContainer_att_to_xml,
-	orginal.StaticText:       StaticValueContainer_att_to_xml,
-	orginal.EditBox:          StaticValueContainer_att_to_xml,
-	orginal.TextArea:         StaticValueContainer_att_to_xml,
-	orginal.ComboBox:         StaticValueContainer_att_to_xml,
-	orginal.ListBox:          StaticValueContainer_att_to_xml,
-	orginal.RadioButtons:     StaticValueContainer_att_to_xml,
-	orginal.CheckBoxes:   	  StaticValueContainer_att_to_xml,
+#	orginal.StaticValueContainer: StaticValueContainer_att_to_xml,
+	orginal.Button:               StaticValueContainer_att_to_xml,
+	orginal.Link:                 StaticValueContainer_att_to_xml,
+	orginal.StaticText:           StaticValueContainer_att_to_xml,
+	orginal.EditBox:              StaticValueContainer_att_to_xml,
+	orginal.TextArea:             StaticValueContainer_att_to_xml,
+	orginal.ComboBox:             StaticValueContainer_att_to_xml,
+	orginal.ListBox:              StaticValueContainer_att_to_xml,
+	orginal.RadioButtons:         StaticValueContainer_att_to_xml,
+	orginal.CheckBoxes:   	      StaticValueContainer_att_to_xml,
 }
 
 def attach():

@@ -1,0 +1,5 @@
+SCREEN TableWithData:
+	Button(BUTTON): Submit
+	Recipients(TABLE):
+		Name(DYNAMIC_TEXT)
+		Email(DYNAMIC_TEXT)
