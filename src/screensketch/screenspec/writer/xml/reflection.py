@@ -59,7 +59,7 @@ def ComoundComponent_att_to_xml(self, parent):
 	for c in self.children:
 		c.to_xml(children)
 
-	if isinstance(self, orginal.ComoundValuesContainer): #  and len(self._grid) > 0
+	if isinstance(self, orginal.ComoundValuesContainer) and self._grid: # and len(self._grid) > 0
 		grid = ET.SubElement(node, "values")
 
 		for row in self._grid:
