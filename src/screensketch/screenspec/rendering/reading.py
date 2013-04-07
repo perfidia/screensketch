@@ -3,6 +3,7 @@ __author__ = 'a'
 
 import xml.etree.ElementTree as xml
 import os
+import shutil
 
 
 htmlRendrering = ""
@@ -10,12 +11,17 @@ htmlRendrering = ""
 
 def openScreenToPage():
     global htmlRendrering
-    htmlRendrering += "<html>\n<body>\n"
+    htmlRendrering += "<html>\n<head>\n"
+    htmlRendrering += '<link href="{{ STATIC_URL }}home.css" rel="stylesheet" type="text/css" media="screen" />'
+    htmlRendrering += '</head>\n<body>\n'
+    htmlRendrering += '<br/><br/><div align="center">'
+
+
 
 
 def endScreenEndPage():
     global htmlRendrering
-    htmlRendrering += "</body>\n</html>\n"
+    htmlRendrering += "</div></body>\n</html>\n"
 
 
 def findvalues(e):
@@ -168,7 +174,7 @@ def imageTag(e):
     global htmlRendrering
     l = []
     l = findvalues(e)
-    htmlRendrering += '<img src=\"' + e.find('identifier').text + '\" alt =\"the image alternative is ' + e.find(
+    htmlRendrering += '<img src=\"' + "{{ STATIC_URL }}python.jpg" + '\" alt =\"the image alternative is ' + e.find(
         'identifier').text + '\"/><br/>\n'
 
 
@@ -232,6 +238,54 @@ def listTag(e):
             htmlRendrering += "</li>\n"
     htmlRendrering += '</li><br/>\n'
 
+
+def buildingDjangoFramework():
+    print "helloloya"
+
+    try:
+        shutil.rmtree('mysite')
+    except:
+        pass
+
+    creatingDjandoProject = "django-admin.py startproject mysite"
+    os.system(creatingDjandoProject)
+
+    os.chdir("mysite")
+
+
+    creatingDjangoApp = "python manage.py startapp webApp"
+    os.system(creatingDjangoApp)
+
+    os.chdir("webApp")
+    try:
+        os.makedirs("static")
+    except:
+        pass
+
+    try:
+        shutil.copyfile('../../home.css', 'static/home.css')
+    except:
+        pass
+
+    try:
+        shutil.copyfile('../../python.jpg', 'static/python.jpg')
+    except:
+        pass
+
+    try:
+        os.makedirs("templates")
+    except:
+        pass
+
+    os.chdir("templates")
+
+    try:
+        os.makedirs("rendering")
+    except:
+        pass
+    os.chdir("../../../")
+
+    print "dud!!"
 
 def generateRendering(component):
     global htmlRendrering
@@ -297,8 +351,8 @@ def textArea(e):
 
 
 def mainFunction():
-    os.system("execute.bat")
-    viewsFile = open('mysite/webApp/views.py' , 'w')
+    buildingDjangoFramework()
+    viewsFile = open('mysite/webApp/views.py', 'w')
     viewsContent = 'from django.http import HttpResponse\n'
     viewsContent += 'from django.shortcuts import render\n'
     viewsContent +='def index(request):\n'
@@ -309,7 +363,10 @@ def mainFunction():
     urlcontent += 'from webApp import views\n'
     urlcontent += "urlpatterns = patterns('',url(r'^$', views.index, name='index'),\n"
 
-    index = '<html>\n<body>\n'
+    index = '<html>\n<head>\n'
+    index += '<link href="{{ STATIC_URL }}home.css" rel="stylesheet" type="text/css" media="screen" />'
+    index += '</head>\n<body>\n'
+    index += '<br/>\n<br/>\n<div align="center">\n'
     global htmlRendrering
     tree = xml.parse("tar.xml")
     #Get the root node
@@ -320,6 +377,8 @@ def mainFunction():
     i = 0
     if screen != None:
         for screen in screen:
+            linkName = screen.find('name').text
+
             fileName = "html"
             djangoPurpose=fileName + str(i)
             viewsContent +='def ' + djangoPurpose + '(request):\n'
@@ -335,12 +394,12 @@ def mainFunction():
                     generateRendering(component)
             endScreenEndPage()
             file = open('mysite/webApp/templates/rendering/' + fileName, 'w')
-            index += '<a href=\"rendering/'+ djangoPurpose + '\">' + fileName + "</a><br/>\n"
+            index += '<a href=\"rendering/'+ djangoPurpose + '\">' + linkName + "</a><br/>\n"
             file.write(htmlRendrering)
             file.close()
             print htmlRendrering
             newScreen()
-        index += '</body>\n</html>\n'
+        index += '</div></body>\n</html>\n'
         fileIndex = open('mysite/webApp/templates/index.html' , 'w')
         fileIndex.write(index)
         fileIndex.close()
