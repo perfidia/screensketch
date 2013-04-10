@@ -61,9 +61,7 @@ def link(e):
     global htmlRendrering
     l = []
     l = findvalues(e)
-    htmlRendrering += ' <a href=\"' + e.find('identifier').text + '\" name=\"' + e.find(
-        'identifier').text + '\" id =\"' + e.find(
-        'identifier').text + '\">' + e.find('identifier').text + '</a><br/>\n'
+    htmlRendrering += ' <a href=\"' + e.find('identifier').text + '\">' + e.find('identifier').text + '</a><br/>\n'
 
 
 def staticText(e):
@@ -106,12 +104,13 @@ def checkBox(e):
 
 def comboBox(e):
     global htmlRendrering
-    htmlRendrering += e.find('identifier').text + ': <select>\n'
-    l = []
-    l = findvalues(e)
-    if len(l) != 0:
-        for i in l:
-            htmlRendrering += '<option value=\"' + i + '\">' + i + '</option>\n'
+    htmlRendrering += e.find('identifier').text + ': <select name=\"' + e.find('identifier').text + '\" id=\"' + e.find('identifier').text +'\">\n'
+    if not e.find('children'):
+        pass
+    else:
+        for child in e:
+             for component1 in child:
+                 htmlRendrering += '<option value=\"' + component1.find('identifier').text + '\">' + component1.find('identifier').text + '</option>\n'
     htmlRendrering += '</select><br/>\n'
 
 
@@ -236,11 +235,11 @@ def listTag(e):
             htmlRendrering += "<li>"
             generateRendering(component1)
             htmlRendrering += "</li>\n"
-    htmlRendrering += '</li><br/>\n'
+    htmlRendrering += '</ol><br/>\n'
 
 
 def buildingDjangoFramework():
-    print "helloloya"
+
 
     try:
         shutil.rmtree('mysite')
@@ -285,7 +284,7 @@ def buildingDjangoFramework():
         pass
     os.chdir("../../../")
 
-    print "dud!!"
+
 
 def generateRendering(component):
     global htmlRendrering
