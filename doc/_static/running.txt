@@ -1,0 +1,9 @@
+Running
+=======
+
+Following actions should be performed to generate HTML pages and run local server:
+
+    1. Run "python main.py"
+    2. Update mysite/setting.py by adding webApp to the installed_apps
+    3. Run "python manage.py runserver"
+ 
