@@ -24,11 +24,17 @@ class ScreenSpec(object):
 ############################
 
 class Screen(object):
-	def __init__(self, name):
+	def __init__(self, name, children = None):
 		assert isinstance(name, basestring)
 
 		self.name = name
 		self.children = []
+
+		if children:
+			assert isinstance(children, list)
+
+			for child in children:
+				self.append(child)
 
 	def append(self, child):
 		assert isinstance(child, Component)
