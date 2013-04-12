@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
 
 		path.pop()
 
-		path.append('data')
+		path.append('samples')
 		path.append('screenspec')
 
 		cls.path = os.sep.join(path)

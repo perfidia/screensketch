@@ -19,25 +19,23 @@ logger = logging.getLogger("root")
 
 logger.info("START")
 
-input_data = open("../data/screenspec/example01.txt").read()
-#input_data = open("../data/screenspec/example02.txt").read()
-#input_data = open("../data/screenspec/example03.txt").read()
-#input_data = open("../data/screenspec/example04.txt").read()
+number = 1   # see data folder
+frmt = "txt" # txt or xml
+
+input_data = open("../samples/screenspec/example%02d.txt" % number).read()
 
 retval = TextReader(input_data).execute()
+TextWriter(retval).execute(sys.stdout)
+XMLWriter(retval).execute(sys.stdout)
 
-#TextWriter(retval).execute(sys.stdout)
-
-print retval.children[0].children[1].identifier
-retval.children[0].children[1]._grid = [["a", "b"], ["c", "d"]]
+#print retval.children[0].children[1].identifier
+#retval.children[0].children[1]._grid = [["a", "b"], ["c", "d"]]
 #print retval.children[0].children[0].values
 
-f = open("tar.xml",'w');
-XMLWriter(retval).execute(f)
-f.close();
+#f = open("tar.xml",'w');
+#XMLWriter(retval).execute(f)
+#f.close();
 
-HTMLRendering(retval).execute()
-
-
+#HTMLRendering(retval).execute()
 
 logger.info("END")
