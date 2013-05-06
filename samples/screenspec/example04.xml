@@ -1,0 +1,24 @@
+<screen-spec>
+  <screen>
+    <name>TableWithData</name>
+    <children>
+      <component type="BUTTON">
+        <identifier>Button</identifier>
+        <values>
+          <value>Submit</value>
+        </values>
+      </component>
+      <component type="TABLE">
+        <identifier>Recipients</identifier>
+        <children>
+          <component type="DYNAMIC_TEXT">
+            <identifier>Name</identifier>
+          </component>
+          <component type="DYNAMIC_TEXT">
+            <identifier>Email</identifier>
+          </component>
+        </children>
+      </component>
+    </children>
+  </screen>
+</screen-spec>

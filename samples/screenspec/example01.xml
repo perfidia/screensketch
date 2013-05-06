@@ -1,0 +1,208 @@
+<screen-spec>
+  <screen>
+    <name>Login</name>
+    <children>
+      <component type="EDIT_BOX">
+        <identifier>Username</identifier>
+      </component>
+      <component type="PASSWORD">
+        <identifier>Password</identifier>
+      </component>
+      <component type="COMBO_BOX">
+        <identifier>Sex</identifier>
+        <children>
+          <component type="STATIC_TEXT">
+            <identifier>Female</identifier>
+          </component>
+          <component type="STATIC_TEXT">
+            <identifier>Male</identifier>
+          </component>
+        </children>
+      </component>
+      <component type="BUTTON">
+        <identifier>Log_in</identifier>
+      </component>
+      <component type="LINK">
+        <identifier>Forgot_your_password</identifier>
+      </component>
+    </children>
+  </screen>
+  <screen>
+    <name>Create_account</name>
+    <children>
+      <component type="EDIT_BOX">
+        <identifier>Username</identifier>
+      </component>
+      <component type="EDIT_BOX">
+        <identifier>Password</identifier>
+      </component>
+      <component type="EDIT_BOX">
+        <identifier>Email</identifier>
+      </component>
+      <component type="EDIT_BOX">
+        <identifier>Retype_password</identifier>
+      </component>
+      <component type="IMAGE">
+        <identifier>Captcha</identifier>
+      </component>
+      <component type="BUTTON">
+        <identifier>Create</identifier>
+      </component>
+      <component type="BUTTON">
+        <identifier>Cancel</identifier>
+      </component>
+    </children>
+  </screen>
+  <screen>
+    <name>Retrieve_password</name>
+    <children>
+      <component type="STATIC_TEXT">
+        <identifier>Warning</identifier>
+      </component>
+      <component type="EDIT_BOX">
+        <identifier>Username</identifier>
+      </component>
+      <component type="IMAGE">
+        <identifier>Captcha</identifier>
+      </component>
+      <component type="BUTTON">
+        <identifier>Retrieve</identifier>
+      </component>
+    </children>
+  </screen>
+  <screen>
+    <name>Comment</name>
+    <children>
+      <component type="DYNAMIC_TEXT">
+        <identifier>Username</identifier>
+      </component>
+      <component type="TEXT_AREA">
+        <identifier>Message</identifier>
+      </component>
+    </children>
+  </screen>
+  <screen>
+    <name>Personal_data</name>
+    <children>
+      <component type="SIMPLE">
+        <identifier>User</identifier>
+        <children>
+          <component type="EDIT_BOX">
+            <identifier>Name</identifier>
+          </component>
+          <component type="EDIT_BOX">
+            <identifier>Surname</identifier>
+          </component>
+        </children>
+      </component>
+      <component type="SIMPLE">
+        <identifier>Account</identifier>
+        <children>
+          <component type="EDIT_BOX">
+            <identifier>Password</identifier>
+          </component>
+          <component type="EDIT_BOX">
+            <identifier>Email</identifier>
+          </component>
+        </children>
+      </component>
+    </children>
+  </screen>
+  <screen>
+    <name>Order</name>
+    <children>
+      <component type="TABLE">
+        <identifier>Goods</identifier>
+        <children>
+          <component type="CHECK_BOX">
+            <identifier>Select</identifier>
+          </component>
+          <component type="DYNAMIC_TEXT">
+            <identifier>Name</identifier>
+          </component>
+          <component type="DYNAMIC_TEXT">
+            <identifier>Quantity</identifier>
+          </component>
+          <component type="DYNAMIC_TEXT">
+            <identifier>Price</identifier>
+          </component>
+          <component type="BUTTON">
+            <identifier>Remove</identifier>
+          </component>
+        </children>
+      </component>
+      <component type="BUTTON">
+        <identifier>Remove_selected</identifier>
+      </component>
+      <component type="BUTTON">
+        <identifier>Order</identifier>
+      </component>
+    </children>
+  </screen>
+  <screen>
+    <name>Newsletter</name>
+    <children>
+      <component type="DYNAMIC_TEXT">
+        <identifier>Email</identifier>
+      </component>
+      <component type="CHECK_BOXES">
+        <identifier>Categories</identifier>
+        <children>
+          <component type="CHECK_BOX">
+            <identifier>Food</identifier>
+          </component>
+          <component type="CHECK_BOX">
+            <identifier>Movies</identifier>
+          </component>
+        </children>
+      </component>
+      <component type="RADIO_BUTTONS">
+        <identifier>Format</identifier>
+        <children>
+          <component type="RADIO_BUTTON">
+            <identifier>Text</identifier>
+          </component>
+          <component type="RADIO_BUTTON">
+            <identifier>HTML</identifier>
+          </component>
+        </children>
+      </component>
+      <component type="LIST">
+        <identifier>Frequency</identifier>
+        <children>
+          <component type="STATIC_TEXT">
+            <identifier>DAILY</identifier>
+          </component>
+          <component type="STATIC_TEXT">
+            <identifier>WEEKLY</identifier>
+          </component>
+        </children>
+      </component>
+      <component type="BUTTON">
+        <identifier>Signup</identifier>
+      </component>
+    </children>
+  </screen>
+  <screen>
+    <name>Offer</name>
+    <children>
+      <component type="LIST">
+        <identifier>Goods</identifier>
+        <children>
+          <component type="DYNAMIC_TEXT">
+            <identifier>Name</identifier>
+          </component>
+          <component type="DYNAMIC_TEXT">
+            <identifier>Price</identifier>
+          </component>
+          <component type="DYNAMIC_TEXT">
+            <identifier>Quantity</identifier>
+          </component>
+          <component type="BUTTON">
+            <identifier>Buy</identifier>
+          </component>
+        </children>
+      </component>
+    </children>
+  </screen>
+</screen-spec>

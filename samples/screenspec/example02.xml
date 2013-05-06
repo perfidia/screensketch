@@ -1,0 +1,96 @@
+<screen-spec>
+  <screen>
+    <name>AnExampleOfStaticValues999</name>
+    <children>
+      <component type="BUTTON">
+        <identifier>button</identifier>
+        <values>
+          <value>caption</value>
+        </values>
+      </component>
+      <component type="LINK">
+        <identifier>link</identifier>
+        <values>
+          <value>caption</value>
+        </values>
+      </component>
+      <component type="STATIC_TEXT">
+        <identifier>static_text</identifier>
+        <values>
+          <value>text</value>
+        </values>
+      </component>
+      <component type="RADIO_BUTTONS">
+        <identifier>radio_buttons</identifier>
+        <values>
+          <value selected="True">Male</value>
+          <value>Female</value>
+        </values>
+      </component>
+      <component type="CHECK_BOXES">
+        <identifier>check_boxes</identifier>
+        <values>
+          <value>A</value>
+          <value selected="True">B</value>
+        </values>
+      </component>
+      <component type="COMBO_BOX">
+        <identifier>combo_box</identifier>
+        <values>
+          <value>A</value>
+          <value>B</value>
+          <value>C</value>
+        </values>
+      </component>
+      <component type="LIST_BOX">
+        <identifier>list_box</identifier>
+        <values>
+          <value>A</value>
+          <value>B</value>
+          <value>C</value>
+        </values>
+      </component>
+      <component type="EDIT_BOX">
+        <identifier>edit_box</identifier>
+        <values>
+          <value>Put sth here</value>
+        </values>
+      </component>
+      <component type="TEXT_AREA">
+        <identifier>text_area</identifier>
+        <values>
+          <value>Put sth here</value>
+        </values>
+      </component>
+    </children>
+  </screen>
+  <screen>
+    <name>AnExampleOfStaticValues_999</name>
+    <children>
+      <component type="EDIT_BOX">
+        <identifier>Email</identifier>
+        <values>
+          <value>Put sth here</value>
+        </values>
+      </component>
+      <component type="RADIO_BUTTONS">
+        <identifier>Sex</identifier>
+        <values>
+          <value>Male</value>
+          <value>Female</value>
+        </values>
+      </component>
+      <component type="COMBO_BOX">
+        <identifier>Age</identifier>
+        <values>
+          <value>&lt; 10</value>
+          <value>11-30</value>
+          <value>&gt; 30</value>
+        </values>
+      </component>
+      <component type="COMBO_BOX">
+        <identifier>Age</identifier>
+      </component>
+    </children>
+  </screen>
+</screen-spec>

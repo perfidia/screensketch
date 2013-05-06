@@ -1,0 +1,16 @@
+<screen-spec>
+  <screen>
+    <name>ThisIsAlsoCorrect</name>
+    <children>
+      <component>
+        <identifier>button</identifier>
+      </component>
+      <component>
+        <identifier>static_text</identifier>
+      </component>
+      <component>
+        <identifier>radio_buttons</identifier>
+      </component>
+    </children>
+  </screen>
+</screen-spec>
