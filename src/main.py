@@ -3,10 +3,13 @@
 import sys
 import logging
 
+from xml.dom.minidom import parseString
+
 from screensketch.screenspec.reader import TextReader
 from screensketch.screenspec.writer import TextWriter
 from screensketch.screenspec.writer import XMLWriter
 from screensketch.screenspec.rendering import HTMLRendering
+from screensketch.screenspec.visualization import HTMLRenderer
 
 FORMAT = '%(levelname)-7s %(message)s'
 
@@ -19,7 +22,7 @@ logger = logging.getLogger("root")
 
 logger.info("START")
 
-number = 1   # see data folder
+number = 2   # see data folder
 frmt = "txt" # txt or xml
 
 input_data = open("../samples/screenspec/example%02d.txt" % number).read()
@@ -36,6 +39,8 @@ XMLWriter(retval).execute(sys.stdout)
 #XMLWriter(retval).execute(f)
 #f.close();
 
-#HTMLRendering(retval).execute()
+dom = parseString(open("../samples/screenspec/example%02d.xml" % number).read())
+
+HTMLRenderer(dom.getElementsByTagName('screen-spec')[0]).execute(sys.stdout)
 
 logger.info("END")
