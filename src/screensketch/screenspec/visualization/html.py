@@ -5,107 +5,136 @@ Created on May 18, 2013
 '''
 
 from types import MethodType
-from lxml import etree as ET
+import xml.etree.ElementTree as xml
 import screensketch.screenspec.model as orginal
 
 
 def ScreenSpec_att_to_html(self):
-	htmlNode = ET.Element('html')
-	bodyNode = ET.SubElement(htmlNode, 'body')
+	htmlNode = xml.Element('html')
+	bodyNode = xml.Element(htmlNode, 'body')
+	htmlNode.append(bodyNode)
 
 	for c in self.children:
 		c.to_html(bodyNode)
 
 	output = StringIO.StringIO()
-	ET.ElementTree(node).write(output, pretty_print=True, encoding='UTF-8')
+	xml(node).write(output, pretty_print=True, encoding='UTF-8')
 
 	return output.getvalue()
 
 def Screen_att_to_html(self, parent):
-	tableNode = ET.SubElement(parent, 'table')
-	tableNode.set('id', self.find('name').text)
-	tableBody = ET.SubElement(tableNode, 'tbody')
+	tableNode = xml.Element('table')
+	parent.append(tableNode)
 	
-	for c in self.find('children').children:
+	tableNode.set('id', self.name)
+	tableBody = xml.Element('tbody')
+	tableNode.append(tableBody)
+	
+	for c in self.children:
 		c.to_html(tableBody)
 
 	return tableNode
 
 def Component_att_to_html(self, parent):
-	tr = ET.SubElement(parent, 'tr')
-	tr.set('colspan', '2')
-	tr.set('id', self.find('identifier').text)
-	tr.set('class', 'merged')
-	td = ET.SubElement(tr, 'td')
+	tr = xml.Element('tr')
+	parent.append(tr)
+	tr.set('id', self.identifier)
 	
-	htmlElement = __createHtmlElement(td, 
-						self.get('type'), 
-						self.find('values'), 
-						self.find('identifier').text)
+	return tr
 
 def ComoundComponent_att_to_html(self, parent):
-	pass
+	for c in self.children:
+		c.to_html(parent)
 
 def StaticValue_att_to_html(self, parent):
 	pass
 
 def StaticValueContainer_att_to_html(self, parent):
-	pass
-
-def __createHtmlElement(self, parent, type, values, id):
+	tr = xml.Element('tr')
+	parent.append(tr)
+	tr.set('id', self.identifier)
+	td = xml.Element('td')
+	tr.append(td)
+	
 	elm = None
-	if ('BUTTON' == type):
-		elm = ET.SubElement(parent, 'input')
+	if (isinstance(self, orginal.Button)):
+		tr.set('colspan', '2')
+		tr.set('class', 'merged')
+		elm = xml.Element('input')
 		elm.set('type', 'button')
-		elm.set('value', values.find('value').text)
-	elif ('LINK' == type):
-		elm = ET.SubElement(parent, 'a')
+		elm.set('value', self.static_values[0])
+	elif (isinstance(self, orginal.Link)):
+		tr.set('colspan', '2')
+		tr.set('class', 'merged')
+		elm = xml.Element('a')
 		elm.set('href', 'link')
-		elm.text = values.find('value').text
-		ET.SubElement(parent, 'br')
-	elif ('STATIC_TEXT' == type):
-		elm = ET.SubElement(parent, 'span')
-		elm.text = values.find('value').text
-	elif ('RADIO_BUTTONS' == type):		
-		for c in values.findAll('value'):			
-			elm = ET.SubElement(parent, 'input')
-			elm.set('type', 'radio')
-			elm.set('name', id)
-			elm.set('value', c.text)
-			if c.get('selected') == 'True':
-				elm.set('checked', '')
-			ET.SubElement(parent, 'br')
-	elif ('CHECK_BOXES' == type):
-		for c in values.findAll('value'):			
-			elm = ET.SubElement(parent, 'input')
-			elm.set('type', 'checkbox')
-			elm.set('name', id)
-			elm.set('value', c.text)
-			if c.get('selected') == 'True':
-				elm.set('checked', '')
-			ET.SubElement(parent, 'br')
-	elif ('COMBO_BOX' == type):
-		elm = ET.SubElement(parent, 'select')
-		for c in values.findAll('value'):			
-			option = ET.SubElement(elm, 'option')
-			option.set('value', c.text)
-			option.text = c.text
-	elif ('LIST_BOX' == type):
-		elm = ET.SubElement(parent, 'select')
-		elm.set('multiple', 'multiple')
-		for c in values.findAll('value'):			
-			option = ET.SubElement(elm, 'option')
-			option.set('value', c.text)
-			option.text = c.text
-	elif ('EDIT_BOX' == type):
-		elm = ET.SubElement(parent, 'input')
-		elm.set('type', 'text')
-		elm.set('value', values.find('value').text)
-	elif ('TEXT_AREA' == type):
-		elm = ET.SubElement(parent, 'textarea')
-		elm.text = values.find('value').text
-		
+		elm.text = self.static_values[0]
+		td.append(xml.Element('br'))
+	elif (isinstance(self, orginal.StaticText)):
+		tr.set('colspan', '2')
+		tr.set('class', 'merged')
+		elm = xml.Element('span')
+		elm.text = self.static_values[0]
+	elif (isinstance(self, orginal.RadioButtons)):
+		td.text = 'radio_buttons'
+		innerTd = xml.Element('td')
+		tr.append(innerTd)
+		for c in self.static_values:
+			option = xml.Element('input')
+			option.set('type', 'radio')
+			option.set('name', self.name)
+			option.set('selected', c.selected)
+			option.set('value', c.value)
+			innerTd.append(option)
+			innerTd.append(xml.Element('br'))
+	elif (isinstance(self, orginal.CheckBoxes)):
+		td.text = 'check_boxes'
+		innerTd = xml.Element('td')
+		tr.append(innerTd)
+		for c in self.static_values:
+			option = xml.Element('input')
+			option.set('type', 'checkbox')
+			option.set('name', self.name)
+			option.set('selected', c.selected)
+			option.set('value', c.value)
+			innerTd.append(option)
+			innerTd.append(xml.Element('br'))
+	elif (isinstance(self, orginal.ComboBox)):
+		td.text = 'combo_box'
+		innerTd = xml.Element('td')
+		tr.append(innerTd)
+		select = xml.Element('select')
+		innerTd.append(select)
+		for c in self.static_values:
+			option = xml.Element('option')
+			option.set('value', c.value)
+			select.append(option)
+	elif (isinstance(self, orginal.EditBox)):
+		td.text = 'edit_box'
+		elm = xml.Element('input')
+		elm.set('type', 'button')
+		elm.set('value', self.static_values[0])
+	elif (isinstance(self, orginal.TextArea)):
+		td.text = 'text_area'
+		innerTd = xml.Element('td')
+		tr.append(innerTd)
+		elm = xml.Element('textarea')
+		innerTd.append(elm)
+		for c in self.static_values:
+			elm.text += c.value
+	elif (isinstance(self, orginal.ListBox)):
+		td.text = 'list_box'
+		innerTd = xml.Element('td')
+		tr.append(innerTd)
+		elm = xml.Element('select')
+		innerTd.append(elm)
+		for c in self.static_values:
+			option = xml.Element('option')
+			option.set('value', c.value)
+			option.text = c.value
+			elm.append(option)
 	return elm
+	
 
 attachments = {
 	orginal.ScreenSpec:           ScreenSpec_att_to_html,
