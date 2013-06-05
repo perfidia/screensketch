@@ -60,19 +60,22 @@ def StaticValueContainer_att_to_html(self, parent):
 		tr.set('class', 'merged')
 		elm = xml.Element('input')
 		elm.set('type', 'button')
-		elm.set('value', self.static_values[0])
+		elm.set('value', self.static_values[0].value)
+		td.append(elm)
 	elif (isinstance(self, orginal.Link)):
 		tr.set('colspan', '2')
 		tr.set('class', 'merged')
 		elm = xml.Element('a')
 		elm.set('href', 'link')
-		elm.text = self.static_values[0]
+		elm.text = self.static_values[0].value
+		td.append(elm)
 		td.append(xml.Element('br'))
 	elif (isinstance(self, orginal.StaticText)):
 		tr.set('colspan', '2')
 		tr.set('class', 'merged')
 		elm = xml.Element('span')
-		elm.text = self.static_values[0]
+		elm.text = self.static_values[0].value
+		td.append(elm)
 	elif (isinstance(self, orginal.RadioButtons)):
 		td.text = 'radio_buttons'
 		innerTd = xml.Element('td')
@@ -81,8 +84,9 @@ def StaticValueContainer_att_to_html(self, parent):
 			option = xml.Element('input')
 			option.set('type', 'radio')
 			option.set('name', self.name)
-			option.set('selected', c.selected)
+			#option.set('selected', c.selected)
 			option.set('value', c.value)
+			option.text = c.value
 			innerTd.append(option)
 			innerTd.append(xml.Element('br'))
 	elif (isinstance(self, orginal.CheckBoxes)):
@@ -93,8 +97,9 @@ def StaticValueContainer_att_to_html(self, parent):
 			option = xml.Element('input')
 			option.set('type', 'checkbox')
 			option.set('name', self.name)
-			option.set('selected', c.selected)
+			#option.set('selected', c.selected)
 			option.set('value', c.value)
+			option.text = c.value
 			innerTd.append(option)
 			innerTd.append(xml.Element('br'))
 	elif (isinstance(self, orginal.ComboBox)):
@@ -107,25 +112,32 @@ def StaticValueContainer_att_to_html(self, parent):
 			for c in self.static_values:
 				option = xml.Element('option')
 				option.set('value', c.value)
+				option.text = c.value
 				select.append(option)
 	elif (isinstance(self, orginal.EditBox)):
 		td.text = 'edit_box'
+		innerTd = xml.Element('td')
+		tr.append(innerTd)
 		elm = xml.Element('input')
-		elm.set('type', 'button')
-		elm.set('value', self.static_values[0])
+		elm.set('type', 'text')
+		elm.set('value', self.static_values[0].value)
+		innerTd.append(elm)
 	elif (isinstance(self, orginal.TextArea)):
 		td.text = 'text_area'
 		innerTd = xml.Element('td')
 		tr.append(innerTd)
 		elm = xml.Element('textarea')
 		innerTd.append(elm)
+		elmText = ''
 		for c in self.static_values:
-			elm.tail = c.value
+			elmText += c.value
+		elm.text = elmText
 	elif (isinstance(self, orginal.ListBox)):
 		td.text = 'list_box'
 		innerTd = xml.Element('td')
 		tr.append(innerTd)
 		elm = xml.Element('select')
+		elm.set('multiple', 'multiple')
 		innerTd.append(elm)
 		for c in self.static_values:
 			option = xml.Element('option')
