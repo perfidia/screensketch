@@ -5,6 +5,7 @@ Created on Jun 01, 2013
 '''
 
 import html
+import xml.etree.ElementTree as xml
 
 class HTMLRenderer(object):
     def __init__(self, screenspec):
@@ -15,6 +16,6 @@ class HTMLRenderer(object):
         retval = self.screenspec.to_html()
         html.detach()
 
-        fd.write(retval)
+        fd.write(xml.tostring(retval))
 
         return fd

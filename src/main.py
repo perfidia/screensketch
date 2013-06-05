@@ -28,8 +28,8 @@ frmt = "txt" # txt or xml
 input_data = open("../samples/screenspec/example%02d.txt" % number).read()
 
 retval = TextReader(input_data).execute()
-TextWriter(retval).execute(sys.stdout)
-XMLWriter(retval).execute(sys.stdout)
+#TextWriter(retval).execute(sys.stdout)
+#XMLWriter(retval).execute(sys.stdout)
 
 #print retval.children[0].children[1].identifier
 #retval.children[0].children[1]._grid = [["a", "b"], ["c", "d"]]
@@ -39,8 +39,6 @@ XMLWriter(retval).execute(sys.stdout)
 #XMLWriter(retval).execute(f)
 #f.close();
 
-dom = parseString(open("../samples/screenspec/example%02d.xml" % number).read())
-
-HTMLRenderer(dom.getElementsByTagName('screen-spec')[0]).execute(sys.stdout)
+HTMLRenderer(retval).execute(sys.stdout)
 
 logger.info("END")

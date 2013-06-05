@@ -5,22 +5,20 @@ Created on May 18, 2013
 '''
 
 from types import MethodType
+import StringIO
 import xml.etree.ElementTree as xml
 import screensketch.screenspec.model as orginal
 
 
 def ScreenSpec_att_to_html(self):
 	htmlNode = xml.Element('html')
-	bodyNode = xml.Element(htmlNode, 'body')
+	bodyNode = xml.Element('body')
 	htmlNode.append(bodyNode)
 
 	for c in self.children:
 		c.to_html(bodyNode)
 
-	output = StringIO.StringIO()
-	xml(node).write(output, pretty_print=True, encoding='UTF-8')
-
-	return output.getvalue()
+	return htmlNode
 
 def Screen_att_to_html(self, parent):
 	tableNode = xml.Element('table')
@@ -105,10 +103,11 @@ def StaticValueContainer_att_to_html(self, parent):
 		tr.append(innerTd)
 		select = xml.Element('select')
 		innerTd.append(select)
-		for c in self.static_values:
-			option = xml.Element('option')
-			option.set('value', c.value)
-			select.append(option)
+		if self.static_values != None:
+			for c in self.static_values:
+				option = xml.Element('option')
+				option.set('value', c.value)
+				select.append(option)
 	elif (isinstance(self, orginal.EditBox)):
 		td.text = 'edit_box'
 		elm = xml.Element('input')
@@ -121,7 +120,7 @@ def StaticValueContainer_att_to_html(self, parent):
 		elm = xml.Element('textarea')
 		innerTd.append(elm)
 		for c in self.static_values:
-			elm.text += c.value
+			elm.tail = c.value
 	elif (isinstance(self, orginal.ListBox)):
 		td.text = 'list_box'
 		innerTd = xml.Element('td')
