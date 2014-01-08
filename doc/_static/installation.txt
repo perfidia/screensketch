@@ -4,4 +4,4 @@ Installation
 The following software is required to run Screen Sketch:
 
     * Python 2.7 (tested on 2.7.3)
-    * PLY 3.4
+    * PLY 3.4 (http://www.dabeaz.com/ply/)
