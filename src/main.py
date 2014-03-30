@@ -1,20 +1,18 @@
-#!/usr/bin.env python
+#!/usr/bin/env python
 
 import sys
 import logging
 
 from xml.dom.minidom import parseString
-
 from screensketch.screenspec.reader import TextReader
 from screensketch.screenspec.writer import TextWriter
 from screensketch.screenspec.writer import XMLWriter
-from screensketch.screenspec.rendering import HTMLRendering
 from screensketch.screenspec.visualization import HTMLRenderer
 
 FORMAT = '%(levelname)-7s %(message)s'
 
 
-logging.basicConfig(format = FORMAT, level = logging.DEBUG)
+logging.basicConfig(format = FORMAT, level = logging.INFO)
 
 #logging.disable(logging.DEBUG)
 
